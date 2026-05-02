@@ -27,18 +27,18 @@ public class WorkoutSessionsController : ControllerBase
 
 	// GET /api/workoutsessions/{id}
 	[HttpGet("{id}")]
-	public async Task<ActionResult<IEnumerable<WorkoutSessionResponseDto>>> GetById(int id)
+	public async Task<ActionResult<WorkoutSessionResponseDto>> GetById(int id)
 	{
 		var session = await _db.WorkoutSessions.FindAsync(id);
-		if (session == null) return null;
+		if (session == null) return NotFound();
 		return Ok(ToDto(session));
 	}
 
 	// POST /api/workoutsessions
 	[HttpPost]
-	public async Task<ActionResult<WorkoutSessionResponseDto>> Create(WorkoutSessionResponseDto dto)
+	public async Task<ActionResult<WorkoutSessionResponseDto>> Create(CreateWorkoutSessionDto dto)
 	{
-		var session = new WorkoutSessionsController()
+		var session = new WorkoutSession()
 		{
 			Date = dto.Date,
 			Type = dto.Type,
@@ -56,7 +56,7 @@ public class WorkoutSessionsController : ControllerBase
 	[HttpPut("{id}")]
 	public async Task<IActionResult> Update(int id, CreateWorkoutSessionDto dto)
 	{
-		var session = await _db.WorkoutSession.FindAsync(id);
+		var session = await _db.WorkoutSessions.FindAsync(id);
 		if (session == null) return NotFound();
 
 		session.Date = dto.Date;
@@ -72,7 +72,7 @@ public class WorkoutSessionsController : ControllerBase
 	[HttpDelete("{id}")]
 	public async Task<IActionResult> Delete(int id)
 	{
-		var session = await _db.WorkoutSession.FindAsync(id);
+		var session = await _db.WorkoutSessions.FindAsync(id);
 		if (session == null) return NotFound();
 
 		_db.WorkoutSessions.Remove(session);
@@ -87,5 +87,5 @@ public class WorkoutSessionsController : ControllerBase
 		Type = s.Type,
 		DurationMinutes = s.DurationMinutes,
 		Notes = s.Notes	
-	}
+	};
 }
