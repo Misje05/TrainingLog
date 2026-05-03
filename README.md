@@ -27,60 +27,21 @@ Her er et screen shot av swagger etter post, put, delete og get har blitt kjørt
 
 <br>
 
-### Dag 1 – Docker + Database + Prosjektoppsett
+### Noe å legge merke til
 
-**Mål:** Databasen kjører i Docker, EF Core er koblet til, og du kan lese/skrive data.
+Lite sikkerhets triks for enkel passordlagring. <br>
+Legge til environment variables i .env i tillegg til å ha .env i .gitignore. 
 
-**Steg 1 – Opprett prosjektet**
-
-Kjør i terminalen (hvor du vil ha prosjektet, f.eks. `~/projects/`):
-
-bash
-
-```bash
-cd ~/projects
-dotnet new webapi -n TrainingLog
-cd TrainingLog
-dotnet add package Microsoft.EntityFrameworkCore
-dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
-dotnet add package Microsoft.EntityFrameworkCore.Tools
-```
-
-**Steg 2 – Lag modellen**
-
-Lag filen `Models/WorkoutSession.cs`:
-
-csharp
-
-```csharp
-public class WorkoutSession
-{
-    public int Id { get; set; }
-    public DateTime Date { get; set; }
-    public string Type { get; set; } = string.Empty; // e.g. "Running", "Gym"
-    public int DurationMinutes { get; set; }
-    public string? Notes { get; set; }
-}
-```
-
-**Steg 3 – DbContext og connection string**
-
-Lag `Data/AppDbContext.cs`, koble til i `Program.cs` med connection string som peker til Docker-containeren.
-
-**Steg 4 – Docker Compose**
-
-Lag `docker-compose.yml` i rotmappen:
-
-yaml
+docker-compose.yml
 
 ```yaml
 services:
   db:
     image: postgres:16
     environment:
-      POSTGRES_USER: traininguser
-      POSTGRES_PASSWORD: trainingpass
-      POSTGRES_DB: traininglog
+      POSTGRES_USER: ${POSTGRES_USER}
+  	  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  	  POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
@@ -91,6 +52,7 @@ services:
     ports:
       - "5000:8080"
     environment:
+      ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__Default: "Host=db;Port=5432;Database=traininglog;Username=traininguser;Password=trainingpass"
     depends_on:
       - db
@@ -99,58 +61,9 @@ volumes:
   pgdata:
 ```
 
-**Steg 5 – EF Migrations**
-
-Kjør i `~/projects/TrainingLog/`:
-
-bash
-
-```bash
-dotnet ef migrations add InitialCreate
-dotnet ef database update
-```
-
-(Databasen må kjøre først: `docker compose up db -d`)
-
-**Sjekk:** Swagger åpnes på `http://localhost:5000/swagger` og databasen er tom men klar.
-
 <br>
 
-### Dag 2 – CRUD API med validering
-
-**Mål:** Fullstendige endepunkter for å opprette, hente, oppdatere og slette treningsøkter.
-
-Lag `Controllers/WorkoutSessionsController.cs` med disse endepunktene:
-
-|Metode|Rute|Hva den gjør|
-|---|---|---|
-|GET|`/api/workoutsessions`|Hent alle øktene|
-|GET|`/api/workoutsessions/{id}`|Hent én økt|
-|POST|`/api/workoutsessions`|Opprett ny økt|
-|PUT|`/api/workoutsessions/{id}`|Oppdater økt|
-|DELETE|`/api/workoutsessions/{id}`|Slett økt|
-
-Legg til enkel validering med Data Annotations på modellen (f.eks. `[Required]`, `[Range(1, 600)]` på varighet).
-
-Bruk DTOs (Data Transfer Objects) for request/response — dette er god praksis og ser bra ut på GitHub.
-
-**Sjekk:** Test alle endepunktene i Swagger manuelt.
-
-<br>
-
-### Dag 3 – Frontend (valgfritt) + Polering
-
-**Alternativ A – Enkel React-frontend**
-
-Kjør i `~/projects/`:
-
-bash
-
-```bash
-npm create vite@latest training-log-frontend -- --template react-ts
-cd training-log-frontend
-npm install
-```
+### Videre plan – Frontend
 
 Lag én side med:
 
@@ -159,14 +72,6 @@ Lag én side med:
 - Slett-knapp per økt (DELETE)
 
 Husk CORS i `Program.cs` siden frontend og API kjører på ulike porter.
-
-**Alternativ B – Polering av backend**
-
-Hvis du heller vil gå dypere på backend:
-
-- Legg til filtrering (`?type=Running`, `?from=2024-01-01`)
-- Legg til enkel statistikk-endpoint (`/api/workoutsessions/stats` → totalt antall, gjennomsnittlig varighet)
-- Skriv én eller to enkle enhetstester med xUnit
 
 <br>
 
