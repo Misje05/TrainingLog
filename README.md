@@ -12,7 +12,20 @@ En treningsdagbok-API med Docker og database
 - **Frontend (valgfritt, dag 3):** React + Vite (TypeScript)
 - **API-docs:** Swagger (Swashbuckle)
 
----
+
+
+##### Starte prosjektet
+```Bash
+docker compose up -d db
+dotnet ef database update
+docker compose up --build
+```
+
+
+Her er et screen shot av swagger etter post, put, delete og get har blitt kjørt.
+<img width="1615" height="1045" alt="image" src="https://github.com/user-attachments/assets/f68bada4-19ba-461e-ba2e-0d28dcdd251f" />
+
+<br>
 
 ### Dag 1 – Docker + Database + Prosjektoppsett
 
@@ -101,7 +114,7 @@ dotnet ef database update
 
 **Sjekk:** Swagger åpnes på `http://localhost:5000/swagger` og databasen er tom men klar.
 
----
+<br>
 
 ### Dag 2 – CRUD API med validering
 
@@ -123,7 +136,7 @@ Bruk DTOs (Data Transfer Objects) for request/response — dette er god praksis 
 
 **Sjekk:** Test alle endepunktene i Swagger manuelt.
 
----
+<br>
 
 ### Dag 3 – Frontend (valgfritt) + Polering
 
@@ -155,7 +168,7 @@ Hvis du heller vil gå dypere på backend:
 - Legg til enkel statistikk-endpoint (`/api/workoutsessions/stats` → totalt antall, gjennomsnittlig varighet)
 - Skriv én eller to enkle enhetstester med xUnit
 
----
+<br>
 
 ### Mappestruktur når ferdig
 
@@ -176,7 +189,7 @@ TrainingLog/
 └── Program.cs
 ```
 
----
+<br>
 
 ### Hele flyten
 Arbeidet fra dette programmet fungerer slik:
@@ -219,9 +232,4 @@ docker compose down
 docker compose down -v
 ```
 
-##### Starte prosjektet
-```Bash
-docker compose up -d db
-dotnet ef database update
-docker compose up --build
-```
+
