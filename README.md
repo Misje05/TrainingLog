@@ -27,6 +27,27 @@ Her er et screen shot av swagger etter post, put, delete og get har blitt kjørt
 
 <br>
 
+## AI-bruk og refleksjon
+
+Dette prosjektet ble utviklet med bevisst bruk av AI-verktøy som støtte for læring — ikke som erstatning for det.
+
+#### Idé og planlegging — ChatGPT
+Prosjektet startet med en åpen samtale med ChatGPT om hvilke prosjekter som egnet seg for å lære backend-utvikling. Valget falt på en treningsdagbok fordi det ga et naturlig domeneoppsett med CRUD-operasjoner og relasjonell data. ChatGPT hjalp deretter med å definere prosjektstruktur, hvilke lag som burde finnes (controllers, models, DTOs, DbContext), og hva som er vanlig praksis i .NET Web API-prosjekter.
+
+#### Boilerplates med bevisste hull
+For å sikre at jeg faktisk lærte implementasjonsdetaljene ba jeg ChatGPT generere klasser med metodesignaturer og TODO-kommentarer — uten ferdig logikk. Selve implementasjonen av CRUD-metodene, DTO-mapping og databaseintegrasjon ble skrevet av meg selv.
+
+#### Konseptforståelse
+Jeg brukte ChatGPT til å forstå hvordan PostgreSQL kan kjøres lokalt via Docker, og hvordan Entity Framework Core kobler seg til databasen fra .NET. Dette ga meg konseptuell forståelse før jeg gikk inn i koden, fremfor å kopiere løsninger jeg ikke forstod.
+
+#### Kodereview med GitHub Copilot
+Etter at prosjektet var ferdig gjennomgikk jeg koden med GitHub Copilot og ba den identifisere svakheter og forbedringsområder — men eksplisitt ikke fikse dem. Målet var å bruke AI som en erfaren reviewer, og selv ta stilling til hvilke endringer som burde gjøres og hvorfor.
+
+#### Læringsfilosofi
+AI ble brukt som sparringspartner og læringsstøtte, ikke som kodegenerator. Alle implementasjonsbeslutninger ble tatt og forstått av meg.
+
+<br>
+
 ### Noe å legge merke til
 
 Lite sikkerhets triks for enkel passordlagring. <br>
@@ -60,27 +81,6 @@ services:
 volumes:
   pgdata:
 ```
-
-<br>
-
-### AI-bruk og refleksjon
-
-Dette prosjektet ble utviklet med bevisst bruk av AI-verktøy som støtte for læring — ikke som erstatning for det.
-
-#### Idé og planlegging — ChatGPT
-Prosjektet startet med en åpen samtale med ChatGPT om hvilke prosjekter som egnet seg for å lære backend-utvikling. Valget falt på en treningsdagbok fordi det ga et naturlig domeneoppsett med CRUD-operasjoner og relasjonell data. ChatGPT hjalp deretter med å definere prosjektstruktur, hvilke lag som burde finnes (controllers, models, DTOs, DbContext), og hva som er vanlig praksis i .NET Web API-prosjekter.
-
-#### Boilerplates med bevisste hull
-For å sikre at jeg faktisk lærte implementasjonsdetaljene ba jeg ChatGPT generere klasser med metodesignaturer og TODO-kommentarer — uten ferdig logikk. Selve implementasjonen av CRUD-metodene, DTO-mapping og databaseintegrasjon ble skrevet av meg selv.
-
-#### Konseptforståelse
-Jeg brukte ChatGPT til å forstå hvordan PostgreSQL kan kjøres lokalt via Docker, og hvordan Entity Framework Core kobler seg til databasen fra .NET. Dette ga meg konseptuell forståelse før jeg gikk inn i koden, fremfor å kopiere løsninger jeg ikke forstod.
-
-#### Kodereview med GitHub Copilot
-Etter at prosjektet var ferdig gjennomgikk jeg koden med GitHub Copilot og ba den identifisere svakheter og forbedringsområder — men eksplisitt ikke fikse dem. Målet var å bruke AI som en erfaren reviewer, og selv ta stilling til hvilke endringer som burde gjøres og hvorfor.
-
-#### Læringsfilosofi
-AI ble brukt som sparringspartner og læringsstøtte, ikke som kodegenerator. Alle implementasjonsbeslutninger ble tatt og forstått av meg.
 
 <br>
 
