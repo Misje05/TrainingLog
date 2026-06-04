@@ -15,11 +15,23 @@ En treningsdagbok-API med Docker og database
 
 
 ##### Starte prosjektet
+Første terminal
 ```Bash
 docker compose up -d db
 dotnet ef database update
 docker compose up --build
 ```
+
+Andre terminal
+```Shell
+C:/GitHub/TrainingLog/dotnet run
+```
+
+Visual Studio Code
+```Shell
+npm run dev
+```
+
 
 
 Her er et screen shot av swagger etter post, put, delete og get har blitt kjørt.
