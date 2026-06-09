@@ -8,7 +8,7 @@ type Props = {
     }) => void;
 };
 
-export default function WorkoutList({ onAdd }: Props) {
+export default function WorkoutForm({ onAdd }: Props) {
     const [type, setType] = useState("");
     const [duration, setDuration] = useState("");
     const [notes, setNotes]= useState(""); 
