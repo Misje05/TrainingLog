@@ -12,9 +12,13 @@ export default function WorkoutList({ onAdd }: Props) {
     const [type, setType] = useState("");
     const [duration, setDuration] = useState("");
     const [notes, setNotes]= useState(""); 
+
+    const isInvalid = type.trim() === "" || duration.trim() === "" || notes.trim() === "";
     
     return (
         <div>
+            <h2>Add workout</h2>
+
             <input
                 type="text"
                 placeholder="Workout Type"
@@ -43,6 +47,7 @@ export default function WorkoutList({ onAdd }: Props) {
             <br/> 
 
             <button 
+                disabled={isInvalid}
                 onClick={() => { 
                     onAdd({
                         type,
