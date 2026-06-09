@@ -18,11 +18,16 @@ export default function WorkoutEdit({ workout, onChange }: Props) {
         workout?.durationMinutes.toString() ?? ""
     );
     const [notes, setNotes] = useState(workout?.notes ?? "");
-    
+
     const isInvalid = type.trim() === "" || duration.trim() === "" || notes.trim() === "";
 
     if (!workout) {
-        return <p>Select a workout to edit</p>;
+        return (
+            <div>
+                <h2>Edit workout</h2>
+                <p>Select a workout to edit</p>
+            </div>
+        );
     }
 
     return (

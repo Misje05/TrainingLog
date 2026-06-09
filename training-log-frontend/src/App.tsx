@@ -74,18 +74,23 @@ function App() {
   };
 
   return (
-    <div>
-      <h1>TrainingLog</h1>
+    <div className="container">
 
-      <WorkoutList workouts={workouts} onEdit={setSelectedWorkout} />
+      <div className="left">
+        <h1>TrainingLog</h1>
+        
+        <WorkoutList workouts={workouts} onEdit={setSelectedWorkout} />
+      </div>
 
-      <WorkoutForm onAdd={addWorkout} />
+      <div className="right">
+        <WorkoutForm onAdd={addWorkout} />
 
-      <WorkoutEdit
-        key={selectedWorkout?.id ?? "none"}
-        workout={selectedWorkout}
-        onChange={changeWorkout}
-      />
+        <WorkoutEdit
+          key={selectedWorkout?.id ?? "none"}
+          workout={selectedWorkout}
+          onChange={changeWorkout}
+          />
+        </div>
     </div>
   );
 }
