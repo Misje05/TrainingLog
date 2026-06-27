@@ -4,6 +4,7 @@ import './App.css';
 import WorkoutList from "./components/WorkoutList";
 import WorkoutForm from "./components/WorkoutForm";
 import WorkoutEdit from "./components/WorkoutEdit";
+import WorkoutDelete from "./components/WorkoutDelete";
 import type { Workout } from "./types/types";
 
 function App() {
@@ -73,24 +74,51 @@ function App() {
       .catch(console.error);
   };
 
-  return (
-    <div className="container">
+  const deleteWorkout = (workout: Workout) => {
+    fetch(`http://localhost:5093/api/workoutsessions/${workout.id}`, {
+      method: "DELETE",
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Failed to delete workout: ${res.status}`);
+        }
 
-      <div className="left">
-        <h1>TrainingLog</h1>
-        
-        <WorkoutList workouts={workouts} onEdit={setSelectedWorkout} />
+        setWorkouts((prev) => prev.filter((w) => w.id !== workout.id));
+
+        if (selectedWorkout?.id === workout.id) {
+          setSelectedWorkout(null);
+        }
+      })
+      .catch(console.error);
+  }
+
+  return (
+    <div className="app">
+
+      <div className="panel-left">
+        <div className="panel-header">
+          <h1>TrainingLog</h1>
+          <p className="subtitle">{workouts.length} workout{workouts.length !== 1 ? "s" : ""} recorded</p>
+        </div>
+        <div className="panel-body">
+          <WorkoutList workouts={workouts} onEdit={setSelectedWorkout} selectedId={selectedWorkout?.id} />
+        </div>
       </div>
 
-      <div className="right">
+      <div className="panel-right">
         <WorkoutForm onAdd={addWorkout} />
 
         <WorkoutEdit
           key={selectedWorkout?.id ?? "none"}
           workout={selectedWorkout}
           onChange={changeWorkout}
-          />
-        </div>
+        />
+
+        <WorkoutDelete
+          workout={selectedWorkout}
+          onDelete={deleteWorkout}
+        />
+      </div>
     </div>
   );
 }
