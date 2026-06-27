@@ -35,6 +35,7 @@ npm run dev
 
 Her er et screenshot av appen hostet lokalt, med CRUD metodene implementert i frontend.
 <img width="959" height="599" alt="image" src="https://github.com/user-attachments/assets/6c106b37-0b7e-42c5-be8b-b4e6471e9b84" />
+Edit og delete tar inn dataene til workouten som trykkes på i tabellen. 
 
 
 
