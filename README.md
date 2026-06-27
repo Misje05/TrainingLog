@@ -33,8 +33,13 @@ npm run dev
 ```
 
 
+Her er et screenshot av appen hostet lokalt, med CRUD metodene implementert i frontend.
+<img width="959" height="599" alt="image" src="https://github.com/user-attachments/assets/6c106b37-0b7e-42c5-be8b-b4e6471e9b84" />
 
-Her er et screen shot av swagger etter post, put, delete og get har blitt kjørt.
+
+
+
+Her er et screenshot av swagger etter post, put, delete og get har blitt kjørt.
 <img width="1615" height="1045" alt="image" src="https://github.com/user-attachments/assets/f68bada4-19ba-461e-ba2e-0d28dcdd251f" />
 
 <br>
